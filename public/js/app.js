@@ -3473,6 +3473,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['questions'],
+  data: function data() {
+    return {
+      ques: this.questions
+    };
+  },
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     Questions: _Pages_Forum_Questions__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -3507,8 +3513,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {}
+  props: ['data']
 });
 
 /***/ }),
@@ -46272,7 +46291,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n                            Dashboard\n                        "
+                        "\n                            Home\n                        "
                       )
                     ]
                   )
@@ -46659,7 +46678,7 @@ var render = function() {
                       active: _vm.route().current("forum")
                     }
                   },
-                  [_vm._v("\n                    Dashboard\n                ")]
+                  [_vm._v("\n                    Home\n                ")]
                 )
               ],
               1
@@ -47687,7 +47706,7 @@ var render = function() {
                   staticClass:
                     "font-semibold text-xl text-gray-800 leading-tight"
                 },
-                [_vm._v("\n            Forum\n        ")]
+                [_vm._v("\n            Discussions\n        ")]
               )
             ]
           },
@@ -47695,7 +47714,20 @@ var render = function() {
         }
       ])
     },
-    [_vm._v(" "), _c("div", { staticClass: "py-12" }, [_c("questions")], 1)]
+    [
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "py-12" },
+        _vm._l(_vm.ques, function(question) {
+          return _c("questions", {
+            key: question.id,
+            attrs: { data: question }
+          })
+        }),
+        1
+      )
+    ]
   )
 }
 var staticRenderFns = []
@@ -47720,49 +47752,67 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
-      _c(
-        "div",
-        {
-          staticClass: "py-4 px-6 bg-white overflow-hidden shadow sm:rounded-lg"
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "flex flex-auto justify-between border-b-1 border-gray-300"
-            },
-            [
-              _c("div", [
-                _c("h3", { staticClass: "text-lg font-semibold" }, [
-                  _vm._v("What is the another name of Elon Musk?")
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "text-gray-400 text-sm" }, [
-                  _vm._v("Nafis Hossain asked 3 hours ago")
-                ])
-              ]),
+  return _c("div", { staticClass: "max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8" }, [
+    _c(
+      "div",
+      {
+        staticClass:
+          "py-4 px-6 bg-white overflow-hidden shadow-md sm:rounded-lg"
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "flex flex-col justify-between mb-2 sm:flex-row" },
+          [
+            _c("div", { staticClass: "mb-2" }, [
+              _c(
+                "h3",
+                { staticClass: "text-lg font-semibold" },
+                [
+                  _c(
+                    "inertia-link",
+                    {
+                      attrs: { href: _vm.route("question.show", _vm.data.slug) }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.data.title) +
+                          "\n                    "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("div", [
-                _c("span", { staticClass: "text-red-300" }, [
-                  _vm._v("10 Replies")
-                ])
+              _c("p", { staticClass: "text-gray-400 text-sm" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.data.user.name) +
+                    " asked " +
+                    _vm._s(_vm.data.time_diff) +
+                    "\n                "
+                )
               ])
-            ]
-          )
-        ]
-      )
-    ])
-  }
-]
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c("span", { staticClass: "text-red-500" }, [
+                _vm._v(_vm._s(_vm.data.reply_count))
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("hr", { staticClass: "mb-3 border-gray-200" }),
+        _vm._v(" "),
+        _c("div", [_c("p", [_vm._v(_vm._s(_vm.data.body_excerpt))])])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
