@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\QuestionResource;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -43,7 +42,23 @@ class QuestionController extends Controller
 
     public function show(Question $question)
     {
-        //
+        $question->body_excerpt = Str::words($question->body, 20);
+        $question->user = $question->user;
+        $question->reply_count = $question->replies->count() . ' ' . Str::plural('reply', $question->replies->count());
+        $question->replies_count = $question->replies->count();
+        $question->time_diff = $question->created_at->diffForHumans();
+
+        $replies = $question->replies;
+
+        foreach ($replies as $reply) {
+            $reply->user = $reply->user;
+            $reply->time_diff = $reply->created_at->diffForHumans();
+        }
+
+        return Inertia::render('Forum/Question', [
+            'question' => $question,
+            'replies' => $replies
+        ]);
     }
 
     public function edit()
