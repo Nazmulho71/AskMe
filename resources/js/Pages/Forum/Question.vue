@@ -24,7 +24,7 @@
                     <hr class="mb-3 border-gray-200">
 
                     <div>
-                        <p>{{ que.body }}</p>
+                        <p v-html="body"></p>
                     </div>
                 </div>
             </div>
@@ -49,6 +49,7 @@
 <script>
     import AppLayout from '@/Layouts/AppLayout'
     import Replies from '@/Pages/Forum/Replies'
+    import md from 'marked'
 
     export default {
         props: ['question', 'replies'],
@@ -63,6 +64,12 @@
         components: {
             AppLayout,
             Replies
+        },
+
+        computed: {
+            body() {
+                return md.parse(this.que.body);
+            }
         }
     }
 </script>

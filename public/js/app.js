@@ -3645,6 +3645,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _Pages_Forum_Replies__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Pages/Forum/Replies */ "./resources/js/Pages/Forum/Replies.vue");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! marked */ "./node_modules/marked/lib/marked.js");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(marked__WEBPACK_IMPORTED_MODULE_2__);
 //
 //
 //
@@ -3693,6 +3695,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3706,6 +3709,11 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__["default"],
     Replies: _Pages_Forum_Replies__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  computed: {
+    body: function body() {
+      return marked__WEBPACK_IMPORTED_MODULE_2___default.a.parse(this.que.body);
+    }
   }
 });
 
@@ -3720,6 +3728,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! marked */ "./node_modules/marked/lib/marked.js");
+/* harmony import */ var marked__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(marked__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -3750,8 +3760,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data']
+  props: ['data'],
+  computed: {
+    body_excerpt: function body_excerpt() {
+      return marked__WEBPACK_IMPORTED_MODULE_0___default.a.parse(this.data.body_excerpt);
+    }
+  }
 });
 
 /***/ }),
@@ -67171,7 +67187,9 @@ var render = function() {
               _vm._v(" "),
               _c("hr", { staticClass: "mb-3 border-gray-200" }),
               _vm._v(" "),
-              _c("div", [_c("p", [_vm._v(_vm._s(_vm.que.body))])])
+              _c("div", [
+                _c("p", { domProps: { innerHTML: _vm._s(_vm.body) } })
+              ])
             ]
           )
         ])
@@ -67295,7 +67313,9 @@ var render = function() {
         _vm._v(" "),
         _c("hr", { staticClass: "mb-3 border-gray-200" }),
         _vm._v(" "),
-        _c("div", [_c("p", [_vm._v(_vm._s(_vm.data.body_excerpt))])])
+        _c("div", [
+          _c("p", { domProps: { innerHTML: _vm._s(_vm.body_excerpt) } })
+        ])
       ]
     )
   ])

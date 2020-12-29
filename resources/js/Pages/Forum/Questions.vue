@@ -22,14 +22,22 @@
             <hr class="mb-3 border-gray-200">
 
             <div>
-                <p>{{ data.body_excerpt }}</p>
+                <p v-html="body_excerpt"></p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import md from 'marked'
+
     export default {
-        props: ['data']
+        props: ['data'],
+
+        computed: {
+            body_excerpt() {
+                return md.parse(this.data.body_excerpt);
+            }
+        }
     }
 </script>
