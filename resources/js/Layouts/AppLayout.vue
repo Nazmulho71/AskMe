@@ -17,6 +17,10 @@
                             <jet-nav-link :href="route('forum')" :active="route().current('forum')">
                                 Home
                             </jet-nav-link>
+
+                            <jet-nav-link :href="route('question.create')" :active="route().current('question.create')">
+                                Ask Question
+                            </jet-nav-link>
                         </div>
                     </div>
 
@@ -120,6 +124,10 @@
                 <div class="pt-2 pb-3 space-y-1">
                     <jet-responsive-nav-link :href="route('forum')" :active="route().current('forum')">
                         Home
+                    </jet-responsive-nav-link>
+                    
+                    <jet-responsive-nav-link :href="route('question.create')" :active="route().current('question.create')">
+                        Ask Question
                     </jet-responsive-nav-link>
                 </div>
 

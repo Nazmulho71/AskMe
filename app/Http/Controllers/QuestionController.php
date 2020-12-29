@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\HandleInertiaRequests;
+use App\Models\Category;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 
@@ -32,12 +35,28 @@ class QuestionController extends Controller
 
     public function create()
     {
-        //
+        $categories = Category::get();
+
+        return Inertia::render('Forum/Ask', [
+            'categories' => $categories
+        ]);
     }
 
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'category' => 'required|integer',
+            'body' => 'required|max:2500'
+        ]);
+
+        Question::create([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'category_id' => $request->category,
+            'body' => $request->body,
+            'user_id' => auth()->id()
+        ]);
     }
 
     public function show(Question $question)

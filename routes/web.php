@@ -14,22 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia\Inertia::render('Dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return Inertia\Inertia::render('Dashboard');
+// })->name('dashboard');
 
 Route::get('/', [QuestionController::class, 'index'])->name('forum');
 
-Route::get('/question/create', [QuestionController::class, 'create'])->name('question.create');
-Route::post('/question/create', [QuestionController::class, 'store']);
+/**
+ * Questions CRUD
+ */
+Route::group(['prefix' => 'question'], function () {
+    Route::get('/ask', [QuestionController::class, 'create'])->name('question.create');
+    Route::post('/ask', [QuestionController::class, 'store']);
 
-Route::get('/question/{question}', [QuestionController::class, 'show'])->name('question.show');
+    Route::get('/{question}', [QuestionController::class, 'show'])->name('question.show');
 
-Route::get('/question/{question}/edit', [QuestionController::class, 'edit'])->name('question.edit');
-Route::post('/question/{question}/edit', [QuestionController::class, 'update']);
+    Route::get('/{question}/edit', [QuestionController::class, 'edit'])->name('question.edit');
+    Route::post('/{question}/edit', [QuestionController::class, 'update']);
 
-Route::delete('/question/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
+    Route::delete('/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
+});
