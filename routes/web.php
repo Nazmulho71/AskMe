@@ -15,16 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return Inertia\Inertia::render('Dashboard');
-// })->name('dashboard');
+Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect()->route('forum');
+    } else {
+        return view('welcome');
+    }
+});
 
-Route::get('/', [QuestionController::class, 'index'])->name('forum');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return Inertia\Inertia::render('Dashboard');
+})->name('dashboard');
 
 Route::group(['prefix' => 'question'], function () {
-    Route::get('/', function () {
-        return redirect()->route('forum');
-    });
+    Route::get('/', [QuestionController::class, 'index'])->name('forum');
 
     /**
      * Questions CRUD

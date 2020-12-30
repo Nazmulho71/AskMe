@@ -50,6 +50,10 @@
                                         Manage Account
                                     </div>
 
+                                    <jet-dropdown-link :href="route('dashboard')">
+                                        Dashboard
+                                    </jet-dropdown-link>
+
                                     <jet-dropdown-link :href="route('profile.show')">
                                         Profile
                                     </jet-dropdown-link>
@@ -145,6 +149,10 @@
                     </div>
 
                     <div class="mt-3 space-y-1">
+                        <jet-responsive-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
+                            Dashboard
+                        </jet-responsive-nav-link>
+
                         <jet-responsive-nav-link :href="route('profile.show')" :active="route().current('profile.show')">
                             Profile
                         </jet-responsive-nav-link>
