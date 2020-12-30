@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\HandleInertiaRequests;
 use App\Models\Category;
 use App\Models\Question;
 use App\Models\Reply;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 

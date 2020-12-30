@@ -5,12 +5,12 @@
                 <div class="mb-2">
                     <h3 class="text-lg font-semibold">
                         <inertia-link :href="route('question.show', data.slug)">
-                            {{ data.title }}
+                            <b>{{ data.title }}</b>
                         </inertia-link>
                     </h3>
 
                     <p class="text-gray-400 text-sm">
-                        {{ data.user.name }} asked {{ data.time_diff }}
+                        <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('dashboard', data.user)">{{ data.user.name }}</inertia-link> asked {{ data.time_diff }}
                     </p>
                 </div>
 

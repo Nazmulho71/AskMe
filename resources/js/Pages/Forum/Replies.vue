@@ -3,7 +3,7 @@
         <div class="flex flex-col justify-between sm:flex-row">
             <div>
                 <p class="text-gray-400 text-sm">
-                    {{ data.user.name }} answered {{ data.time_diff }}
+                    <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('dashboard', data.user)">{{ data.user.name }}</inertia-link> answered {{ data.time_diff }}
                 </p>
             </div>
 

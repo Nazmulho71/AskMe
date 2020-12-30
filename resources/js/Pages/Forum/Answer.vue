@@ -25,7 +25,7 @@
 
                             <div class="mt-4 flex justify-between items-center">
                                 <div>
-                                    <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="'/question/' + que.slug">
+                                    <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="route('question.show', que.slug)">
                                         Go Back
                                     </inertia-link>
                                 </div>

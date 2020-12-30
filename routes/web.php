@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ReplyController;
 use Illuminate\Support\Facades\Route;
@@ -23,9 +24,7 @@ Route::get('/', function () {
     }
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia\Inertia::render('Dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{user}', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::group(['prefix' => 'question'], function () {
     Route::get('/', [QuestionController::class, 'index'])->name('forum');

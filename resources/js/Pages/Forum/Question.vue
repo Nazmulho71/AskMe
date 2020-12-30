@@ -9,7 +9,7 @@
                 </div>
 
                 <div v-if="question.replies_count">
-                    <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="'/question/' + question.slug + '/reply'">
+                    <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="route('reply.create', question.slug)">
                         Write an answer
                     </inertia-link>
                 </div>
@@ -22,7 +22,7 @@
                     <div class="flex flex-col justify-between mb-2 sm:flex-row">
                         <div class="mb-2">
                             <p class="text-gray-400 text-sm">
-                                {{ que.user.name }} asked {{ que.time_diff }}
+                                <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('dashboard', que.user)">{{ que.user.name }}</inertia-link> asked {{ que.time_diff }}
                             </p>
                         </div>
 
@@ -48,7 +48,7 @@
                     </div>
 
                     <div v-else>
-                        <p class="text-gray-500">No answers found yet! <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="'/question/' + question.slug + '/reply'">Write an answer</inertia-link></p>
+                        <p class="text-gray-500">No answers found yet! <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="route('reply.create', question.slug)">Write an answer</inertia-link></p>
                     </div>
                 </div>
             </div>
