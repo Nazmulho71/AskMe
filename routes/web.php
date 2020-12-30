@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ReplyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,10 +21,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [QuestionController::class, 'index'])->name('forum');
 
-/**
- * Questions CRUD
- */
 Route::group(['prefix' => 'question'], function () {
+    Route::get('/', function () {
+        return redirect()->route('forum');
+    });
+
+    /**
+     * Questions CRUD
+     */
     Route::get('/ask', [QuestionController::class, 'create'])->name('question.create');
     Route::post('/ask', [QuestionController::class, 'store']);
 
@@ -33,4 +38,10 @@ Route::group(['prefix' => 'question'], function () {
     Route::post('/{question}/edit', [QuestionController::class, 'update']);
 
     Route::delete('/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
+
+    /**
+     * Reply CRUD
+     */
+    Route::get('/{question}/reply', [ReplyController::class, 'create'])->name('reply.create');
+    Route::post('/{question}/reply', [ReplyController::class, 'store']);
 });

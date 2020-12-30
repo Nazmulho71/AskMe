@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Models\Category;
 use App\Models\Question;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -67,7 +68,7 @@ class QuestionController extends Controller
         $question->replies_count = $question->replies->count();
         $question->time_diff = $question->created_at->diffForHumans();
 
-        $replies = $question->replies;
+        $replies = Reply::with('question')->where('question_id', '=', $question->id)->latest()->get();
 
         foreach ($replies as $reply) {
             $reply->user = $reply->user;

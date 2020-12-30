@@ -1,9 +1,19 @@
 <template>
     <app-layout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ que.title }}
-            </h2>
+            <div class="flex justify-between items-center">
+                <div>
+                    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                        {{ que.title }}
+                    </h2>
+                </div>
+
+                <div v-if="question.replies_count">
+                    <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="'/question/' + question.slug + '/reply'">
+                        Write an answer
+                    </inertia-link>
+                </div>
+            </div>
         </template>
 
         <div class="py-12 pb-6">
@@ -38,7 +48,7 @@
                     </div>
 
                     <div v-else>
-                        <p class="text-gray-500">No answers found yet! <a class="text-red-500 underline transition-all duration-100 hover:text-red-300" href="#">Write an answer</a></p>
+                        <p class="text-gray-500">No answers found yet! <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="'/question/' + question.slug + '/reply'">Write an answer</inertia-link></p>
                     </div>
                 </div>
             </div>
