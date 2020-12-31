@@ -24,6 +24,7 @@ class QuestionController extends Controller
             $question->body_excerpt = Str::words($question->body, 20);
             $question->user = $question->user;
             $question->reply_count = $question->replies->count() . ' ' . Str::plural('reply', $question->replies->count());
+            $question->category = $question->category;
             $question->time_diff = $question->created_at->diffForHumans();
         }
 
@@ -62,6 +63,7 @@ class QuestionController extends Controller
     {
         $question->body_excerpt = Str::words($question->body, 20);
         $question->user = $question->user;
+        $question->category = $question->category;
         $question->reply_count = $question->replies->count() . ' ' . Str::plural('reply', $question->replies->count());
         $question->replies_count = $question->replies->count();
         $question->time_diff = $question->created_at->diffForHumans();

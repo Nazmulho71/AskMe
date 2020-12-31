@@ -28,6 +28,7 @@ class DashboardController extends Controller
 
         foreach ($questions as $question) {
             $question->body_excerpt = Str::words($question->body, 20);
+            $question->category = $question->category;
 
             $question->reply_count = $question->replies->count() .
                                         ' ' .

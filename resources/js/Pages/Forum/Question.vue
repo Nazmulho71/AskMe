@@ -22,7 +22,7 @@
                     <div class="flex flex-col justify-between mb-2 sm:flex-row">
                         <div class="mb-2">
                             <p class="text-gray-400 text-sm">
-                                <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('dashboard', que.user)">{{ que.user.name }}</inertia-link> asked {{ que.time_diff }}
+                                <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('dashboard', que.user)">{{ que.user.name }}</inertia-link> asked in {{ question.category.name }} {{ que.time_diff }}
                             </p>
                         </div>
 

@@ -7,13 +7,13 @@
                 </inertia-link>
                 
                 <span class="text-gray-400 text-sm">
-                    Asked {{ data.time_diff }}
+                    Asked in {{ data.category.name }} {{ data.time_diff }}
                 </span>
             </h3>
         </div>
 
         <div>
-            <span class="text-red-500">{{ data.reply_count }}</span>
+            <span class="text-red-500 hidden sm:block">{{ data.reply_count }}</span>
         </div>
     </div>
 </template>

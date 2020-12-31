@@ -20,7 +20,7 @@
                             </div>
                         </div>
 
-                        <div class="text-right">
+                        <div class="text-right hidden sm:block">
                             <div class="text-red-500">{{ q_count }}</div>
                             <div class="text-red-500">{{ r_count }}</div>
                         </div>

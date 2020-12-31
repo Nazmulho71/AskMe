@@ -67125,7 +67125,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "text-right" }, [
+                _c("div", { staticClass: "text-right hidden sm:block" }, [
                   _c("div", { staticClass: "text-red-500" }, [
                     _vm._v(_vm._s(_vm.q_count))
                   ]),
@@ -67199,7 +67199,9 @@ var render = function() {
             _vm._v(" "),
             _c("span", { staticClass: "text-gray-400 text-sm" }, [
               _vm._v(
-                "\n                Asked " +
+                "\n                Asked in " +
+                  _vm._s(_vm.data.category.name) +
+                  " " +
                   _vm._s(_vm.data.time_diff) +
                   "\n            "
               )
@@ -67210,7 +67212,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", [
-        _c("span", { staticClass: "text-red-500" }, [
+        _c("span", { staticClass: "text-red-500 hidden sm:block" }, [
           _vm._v(_vm._s(_vm.data.reply_count))
         ])
       ])
@@ -67812,7 +67814,9 @@ var render = function() {
                           [_vm._v(_vm._s(_vm.que.user.name))]
                         ),
                         _vm._v(
-                          " asked " +
+                          " asked in " +
+                            _vm._s(_vm.question.category.name) +
+                            " " +
                             _vm._s(_vm.que.time_diff) +
                             "\n                        "
                         )
@@ -67951,7 +67955,9 @@ var render = function() {
                     [_vm._v(_vm._s(_vm.data.user.name))]
                   ),
                   _vm._v(
-                    " asked " +
+                    " asked in " +
+                      _vm._s(_vm.data.category.name) +
+                      " " +
                       _vm._s(_vm.data.time_diff) +
                       "\n                "
                   )
