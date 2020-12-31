@@ -13,6 +13,12 @@
                         Write an answer
                     </inertia-link>
                 </div>
+
+                <div v-else>
+                    <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="route('category.index', question.category.slug)">
+                        Browse {{ question.category.name }} category
+                    </inertia-link>
+                </div>
             </div>
         </template>
 
@@ -22,7 +28,7 @@
                     <div class="flex flex-col justify-between mb-2 sm:flex-row">
                         <div class="mb-2">
                             <p class="text-gray-400 text-sm">
-                                <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('dashboard', que.user)">{{ que.user.name }}</inertia-link> asked in {{ question.category.name }} {{ que.time_diff }}
+                                <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('dashboard', que.user)">{{ que.user.name }}</inertia-link> asked in <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('category.index', que.category.slug)">{{ que.category.name }}</inertia-link> {{ que.time_diff }}
                             </p>
                         </div>
 

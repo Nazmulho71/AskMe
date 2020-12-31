@@ -14,14 +14,14 @@ class DashboardController extends Controller
     public function index(User $user)
     {
         $questions = Question::with('user')
-                                ->where('user_id', '=', $user->id)
-                                ->latest()
-                                ->get();
+            ->where('user_id', '=', $user->id)
+            ->latest()
+            ->get();
 
         $replies = Reply::with('user')
-                                ->where('user_id', '=', $user->id)
-                                ->latest()
-                                ->get();
+            ->where('user_id', '=', $user->id)
+            ->latest()
+            ->get();
 
         $q_count = 'Asked ' . $questions->count() . ' ' . Str::plural('question', $questions->count());
         $r_count = 'Given '. $replies->count() . ' ' . Str::plural('answer', $questions->count());
@@ -31,8 +31,8 @@ class DashboardController extends Controller
             $question->category = $question->category;
 
             $question->reply_count = $question->replies->count() .
-                                        ' ' .
-                                        Str::plural('reply', $question->replies->count());
+                ' ' .
+                Str::plural('reply', $question->replies->count());
 
             $question->time_diff = $question->created_at->diffForHumans();
         }

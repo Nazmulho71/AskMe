@@ -7,7 +7,7 @@
                 </inertia-link>
                 
                 <span class="text-gray-400 text-sm">
-                    Asked in {{ data.category.name }} {{ data.time_diff }}
+                    Asked in <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('category.index', data.category.slug)">{{ data.category.name }}</inertia-link> {{ data.time_diff }}
                 </span>
             </h3>
         </div>

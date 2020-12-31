@@ -35,7 +35,7 @@ class QuestionController extends Controller
 
     public function create()
     {
-        $categories = Category::get();
+        $categories = Category::orderBy('name')->get();
 
         return Inertia::render('Forum/Ask', [
             'categories' => $categories

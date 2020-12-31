@@ -12,7 +12,7 @@
                     <div class="py-4 px-6">
                         <form method="post" @submit.prevent="createAnswer">
                             <div>
-                                <label class="block mb-2 font-medium text-gray-700" for="title">
+                                <label class="block mb-2 font-medium text-sm text-gray-700" for="title">
                                     <span>Write your answer</span>
                                 </label>
 

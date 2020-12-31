@@ -10,7 +10,7 @@
                     </h3>
 
                     <p class="text-gray-400 text-sm">
-                        <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('dashboard', data.user)">{{ data.user.name }}</inertia-link> asked in <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('category.index', data.category.slug)">{{ data.category.name }}</inertia-link> {{ data.time_diff }}
+                        <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('dashboard', data.user)">{{ data.user.name }}</inertia-link> asked in {{ data.category.name }} {{ data.time_diff }}
                     </p>
                 </div>
 

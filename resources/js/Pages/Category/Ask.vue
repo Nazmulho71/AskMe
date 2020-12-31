@@ -2,7 +2,7 @@
     <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Ask Question
+                Ask in {{ cate.name }}
             </h2>
         </template>
 
@@ -20,20 +20,6 @@
 
                                 <div class="text-red-500 text-sm mt-1" v-if="errors.title">
                                     {{ errors.title[0] }}
-                                </div>
-                            </div>
-
-                            <div class="mt-4">
-                                <label class="block mb-2 font-medium text-sm text-gray-700" for="title">
-                                    <span>Select Category</span>
-                                </label>
-
-                                <select name="category" v-model="form.category" class="form-input cursor-pointer rounded-md shadow-sm mt-1 block w-full" v-bind:class="{'border-red-500': checkErrors.category}">
-                                    <option v-for="category in cates" :key="category.id" :value="category.id">{{ category.name }}</option>
-                                </select>
-
-                                <div class="text-red-500 text-sm mt-1" v-if="errors.category">
-                                    {{ errors.category[0] }}
                                 </div>
                             </div>
 
@@ -68,27 +54,25 @@
     import { Inertia } from '@inertiajs/inertia';
 
     export default {
-        props: ['categories'],
+        props: ['category'],
 
         data() {
             return {
-                cates: this.categories,
+                cate: this.category,
 
                 form: {
                     title: '',
-                    category: '',
+                    category: this.category.id,
                     body: ''
                 },
 
                 errors: {
                     title: [],
-                    category: [],
                     body: []
                 },
 
                 checkErrors: {
                     title: false,
-                    category: false,
                     body: false
                 }
             }
@@ -105,24 +89,21 @@
                     .then(response => {
                         this.checkErrors = {
                             title: false,
-                            category: false,
                             body: false
                         };
                         
                         this.errors = {
                             title: [],
                             body: [],
-                            category: []
                         };
 
-                        this.$inertia.visit('/', { method: 'get' });
+                        this.$inertia.visit('/category/' + this.cate.slug, { method: 'get' });
                     })
                     .catch(e => {
                         this.errors = e.response.data.errors;
 
                         this.checkErrors = {
                             title: (this.errors.title) ? true : false,
-                            category: (this.errors.category) ? true : false,
                             body: (this.errors.body) ? true : false
                         };
                     });
