@@ -72,6 +72,14 @@ class QuestionController extends Controller
 
         foreach ($replies as $reply) {
             $reply->user = $reply->user;
+            $reply->likes_count = $reply->likes->count();
+
+            $reply->likes = $reply->likes;
+
+            foreach ($reply->likes as $like) {
+                $reply->isLiked = ($like->user->id === auth()->id()) ? true : false;
+            }
+
             $reply->time_diff = $reply->created_at->diffForHumans();
         }
 

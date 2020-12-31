@@ -27,7 +27,11 @@ class CategoryController extends Controller
         foreach ($questions as $question) {
             $question->body_excerpt = Str::words($question->body, 20);
             $question->user = $question->user;
-            $question->reply_count = $question->replies->count() . ' ' . Str::plural('reply', $question->replies->count());
+
+            $question->reply_count = $question->replies->count() .
+                ' ' .
+                Str::plural('reply', $question->replies->count());
+
             $question->category = $question->category;
             $question->time_diff = $question->created_at->diffForHumans();
         }

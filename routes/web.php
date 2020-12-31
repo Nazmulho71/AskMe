@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ReplyController;
 use Illuminate\Support\Facades\Route;
@@ -32,7 +33,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/{user}', [Dashb
  */
 Route::group(['prefix' => 'question'], function () {
     Route::get('/', [QuestionController::class, 'index'])->name('forum');
-    
+
     Route::get('/ask', [QuestionController::class, 'create'])->name('question.create');
     Route::post('/ask', [QuestionController::class, 'store']);
 
@@ -49,6 +50,12 @@ Route::group(['prefix' => 'question'], function () {
     Route::get('/{question}/reply', [ReplyController::class, 'create'])->name('reply.create');
     Route::post('/{question}/reply', [ReplyController::class, 'store']);
 });
+
+/**
+ * Like & Unlike
+ */
+Route::post('/reply/{reply}/like', [LikeController::class, 'likeIt'])->name('like');
+Route::delete('/reply/{reply}/unlike', [LikeController::class, 'unlikeIt'])->name('unlike');
 
 /**
  * Categories

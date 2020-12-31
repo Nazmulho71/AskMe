@@ -4304,12 +4304,84 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data', 'question'],
   data: function data() {
     return {
-      que: this.question
+      que: this.question,
+      likeStatus: '',
+      dynamicClass: ''
     };
+  },
+  created: function created() {
+    this.likeStatus = this.data.isLiked;
+    this.dynamicClass = this.likeStatus ? 'fas fa-heart' : 'far fa-heart';
+  },
+  methods: {
+    interact: function interact() {
+      var _this = this;
+
+      if (this.likeStatus) {
+        axios["delete"]('/reply/' + this.data.id + '/unlike', this.data.id).then(function (response) {
+          var span = document.getElementById('likesCount' + _this.data.id);
+          var counts = span.innerText;
+          counts--;
+          span.innerText = counts;
+          var heart = document.getElementById('heart' + _this.data.id);
+          heart.classList.remove('fas');
+          heart.classList.add('far');
+          _this.likeStatus = false;
+        })["catch"](function (e) {
+          return console.log(e.response.data);
+        });
+      } else {
+        axios.post('/reply/' + this.data.id + '/like', this.data.id).then(function (response) {
+          var span = document.getElementById('likesCount' + _this.data.id);
+          var counts = span.innerText;
+          counts++;
+          span.innerText = counts;
+          var heart = document.getElementById('heart' + _this.data.id);
+          heart.classList.remove('far');
+          heart.classList.add('fas');
+          _this.likeStatus = true;
+        })["catch"](function (e) {
+          return console.log(e.response.data);
+        });
+      }
+    } // like() {
+    //     axios.post('/reply/' + this.data.id + '/like', this.data.id)
+    //         .then(response => {
+    //             let span = document.getElementById('likesCount' + this.data.id);
+    //             let counts = span.innerText;
+    //             counts++;
+    //             span.innerText = counts;
+    //             console.log(counts);
+    //             console.log(response);
+    //             let heart = document.getElementById('heart' + this.data.id);
+    //             heart.classList.remove('far');
+    //             heart.classList.add('fas');
+    //         })
+    //         .catch(e => console.log(e.response.data));
+    // },
+    // unlike() {
+    //     axios.delete('/reply/' + this.data.id + '/unlike', this.data.id)
+    //         .then(response => {
+    //             let span = document.getElementById('likesCount' + this.data.id);
+    //             let counts = span.innerText;
+    //             counts--;
+    //             span.innerText = counts;
+    //             console.log(counts);
+    //             console.log(response);
+    //             let heart = document.getElementById('heart' + this.data.id);
+    //             heart.classList.remove('fas');
+    //             heart.classList.add('far');
+    //         })
+    //         .catch(e => console.log(e.response.data));
+    // }
+
   }
 });
 
@@ -68799,7 +68871,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "py-4" }, [
-    _c("div", { staticClass: "flex flex-col justify-between sm:flex-row" }, [
+    _c("div", { staticClass: "flex justify-between" }, [
       _c("div", [
         _c(
           "p",
@@ -68817,6 +68889,26 @@ var render = function() {
             _vm._v(" answered " + _vm._s(_vm.data.time_diff) + "\n            ")
           ],
           1
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "text-lg" }, [
+        _c("span", { on: { click: _vm.interact } }, [
+          _c("i", {
+            class:
+              this.dynamicClass +
+              " text-red-600 cursor-pointer transition-all duration-100 transform hover:scale-90",
+            attrs: { id: "heart" + _vm.data.id }
+          })
+        ]),
+        _vm._v(" "),
+        _c(
+          "span",
+          {
+            staticClass: "text-red-500",
+            attrs: { id: "likesCount" + _vm.data.id }
+          },
+          [_vm._v(_vm._s(_vm.data.likes_count))]
         )
       ])
     ]),
