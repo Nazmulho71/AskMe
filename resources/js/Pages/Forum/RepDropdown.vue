@@ -1,5 +1,5 @@
 <template>
-    <jet-dropdown align="right" width="48">
+    <jet-dropdown class="align-left sm:align-right" width="48">
         <template #trigger>
             <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
                 <i class="fas fa-ellipsis-h"></i>
@@ -8,8 +8,8 @@
 
         <template #content>
             <div>
-                <jet-dropdown-link :data=data :key="data.id" :href="route('reply.edit', [question.slug, data.id])">
-                    Update
+                <jet-dropdown-link :key="data.id" :href="route('reply.edit', [question.slug, data.id])">
+                    Edit
                 </jet-dropdown-link>
 
                 <form @submit.prevent="destroy">
@@ -36,7 +36,7 @@
 
         methods: {
             destroy() {
-                axios.delete('/question/' + this.question.slug + '/reply/' + this.data.id)
+                axios.delete('/question/' + this.question.slug + '/reply/' + this.data.id + '/delete')
                     .then(response => {
                         this.$inertia.visit('/question/' + this.question.slug, { method: 'get' });
                     })

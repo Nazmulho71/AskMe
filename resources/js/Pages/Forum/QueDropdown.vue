@@ -14,8 +14,8 @@
 
                 <div class="border-t border-gray-100"></div>
 
-                <jet-dropdown-link :data=data :key="data.id" :href="route('question.edit', data)">
-                    Update
+                <jet-dropdown-link :data=data :key="data.id" :href="route('question.edit', data.slug)">
+                    Edit
                 </jet-dropdown-link>
 
                 <form @submit.prevent="destroy">

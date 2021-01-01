@@ -115,7 +115,7 @@
                             category: []
                         };
 
-                        this.$inertia.visit('/', { method: 'get' });
+                        this.$inertia.visit('/question/' + slugify(this.form.title.toLowerCase()), { method: 'get' });
                     })
                     .catch(e => {
                         this.errors = e.response.data.errors;

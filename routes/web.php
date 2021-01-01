@@ -51,10 +51,10 @@ Route::group(['prefix' => 'question'], function () {
         Route::get('/', [ReplyController::class, 'create'])->name('reply.create');
         Route::post('/', [ReplyController::class, 'store']);
 
-        Route::get('/{reply}/edit')->name('reply.edit');
-        Route::put('/{reply}/edit');
+        Route::get('/{reply}/edit', [ReplyController::class, 'edit'])->name('reply.edit');
+        Route::put('/{reply}/edit', [ReplyController::class, 'update']);
 
-        Route::delete('/{reply}')->name('reply.destroy');
+        Route::delete('/{reply}/delete', [ReplyController::class, 'destroy'])->name('reply.destroy');
     });
 });
 

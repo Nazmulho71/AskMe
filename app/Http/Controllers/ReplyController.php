@@ -36,6 +36,10 @@ class ReplyController extends Controller
 
     public function edit(Question $question, Reply $reply)
     {
+        if ($reply->user->id != auth()->id()) {
+            return redirect()->route('forum');
+        }
+
         return Inertia::render('Forum/RepUpdate', [
             'question' => $question,
             'reply' => $reply
@@ -44,11 +48,23 @@ class ReplyController extends Controller
 
     public function update(Question $question, Reply $reply, Request $request)
     {
-        //
+        if ($reply->user->id != auth()->id()) {
+            return redirect()->route('forum');
+        }
+
+        $this->validate($request, [
+            'body' => 'required|max:2500'
+        ]);
+
+        $reply->update($request->all());
     }
 
     public function destroy(Question $question, Reply $reply)
     {
-        //
+        if ($reply->user->id != auth()->id()) {
+            return redirect()->route('forum');
+        }
+        
+        $reply->delete();
     }
 }

@@ -2,7 +2,7 @@
     <app-layout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Ask in {{ cate.name }}
+                Update: <b>{{ question.title }}</b>
             </h2>
         </template>
 
@@ -10,7 +10,7 @@
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="py-4 px-6">
-                        <form method="post" @submit.prevent="createQuestion">
+                        <form method="post" @submit.prevent="updateQuestion">
                             <div>
                                 <label class="block mb-2 font-medium text-sm text-gray-700" for="title">
                                     <span>Question Title</span>
@@ -37,7 +37,7 @@
 
                             <div>
                                 <jet-button type="submit">
-                                    Ask
+                                    Update
                                 </jet-button>
                             </div>
                         </form>
@@ -54,25 +54,25 @@
     import { Inertia } from '@inertiajs/inertia';
 
     export default {
-        props: ['category'],
+        props: ['question'],
 
         data() {
             return {
-                cate: this.category,
-
                 form: {
-                    title: '',
-                    category: this.category.id,
-                    body: ''
+                    title: this.question.title,
+                    category: this.question.category_id,
+                    body: this.question.body
                 },
 
                 errors: {
                     title: [],
+                    category: [],
                     body: []
                 },
 
                 checkErrors: {
                     title: false,
+                    category: false,
                     body: false
                 }
             }
@@ -84,17 +84,19 @@
         },
 
         methods: {
-            createQuestion() {
-                axios.post('/question/ask', this.form)
+            updateQuestion() {
+                axios.put('/question/' + this.question.slug + '/edit', this.form)
                     .then(response => {
                         this.checkErrors = {
                             title: false,
+                            category: false,
                             body: false
                         };
                         
                         this.errors = {
                             title: [],
                             body: [],
+                            category: []
                         };
 
                         this.$inertia.visit('/question/' + slugify(this.form.title.toLowerCase()), { method: 'get' });
@@ -104,6 +106,7 @@
 
                         this.checkErrors = {
                             title: (this.errors.title) ? true : false,
+                            category: (this.errors.category) ? true : false,
                             body: (this.errors.body) ? true : false
                         };
                     });

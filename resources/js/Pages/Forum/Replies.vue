@@ -3,7 +3,11 @@
         <div class="flex justify-between">
             <div>
                 <p class="text-gray-400 text-sm inline-flex items-center overflow-visible">
-                    <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('dashboard', data.user)">{{ data.user.name }}</inertia-link> answered {{ data.time_diff }}
+                    <inertia-link class="underline transition-all duration-100 hover:text-gray-300" :href="route('dashboard', data.user)">{{ data.user.name }}</inertia-link>&nbsp;answered {{ data.time_diff }}
+
+                    <span v-if="data.isEdited">
+                        &nbsp;(edited)
+                    </span>
                     
                     <span v-if="data.isAuthReplied" class="ml-2">
                         <rep-dropdown :data="data" :question="que" :key="data.id" />

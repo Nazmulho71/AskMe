@@ -69,7 +69,7 @@ class QuestionController extends Controller
         $question->reply_count = $question->replies->count() . ' ' . Str::plural('reply', $question->replies->count());
         $question->replies_count = $question->replies->count();
         $question->isAuthAsked = ($question->user->id == auth()->id()) ? true : false;
-        $question->time_diff = $question->created_at->diffForHumans();
+        $question->time_diff = $question->updated_at->diffForHumans();
 
         $replies = Reply::with('question')->where('question_id', '=', $question->id)->latest()->get();
 
@@ -83,7 +83,9 @@ class QuestionController extends Controller
                 $reply->isLiked = ($like->user->id === auth()->id()) ? true : false;
             }
 
-            $reply->time_diff = $reply->created_at->diffForHumans();
+            $reply->isEdited = ($reply->created_at != $reply->updated_at);
+
+            $reply->time_diff = $reply->updated_at->diffForHumans();
         }
 
         return Inertia::render('Forum/Question', [
@@ -92,24 +94,44 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function edit()
+    public function edit(Question $question)
     {
-        //
+        if ($question->user->id != auth()->id()) {
+            return redirect()->route('forum');
+        }
+
+        return Inertia::render('Forum/QueUpdate', [
+            'question' => $question
+        ]);
     }
 
     public function update(Request $request, Question $question)
     {
-        //
+        if ($question->user->id != auth()->id()) {
+            return redirect()->route('forum');
+        }
+
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'category' => 'required|integer',
+            'body' => 'required|max:2500'
+        ]);
+
+        $question->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'category_id' => $request->category,
+            'body' => $request->body,
+            'user_id' => auth()->id()
+        ]);
     }
 
     public function destroy(Question $question)
     {
-        $question->delete();
-        
-        $replies = $question->replies;
-
-        foreach ($replies as $reply) {
-            $reply->likes->delete();
+        if ($question->user->id != auth()->id()) {
+            return redirect()->route('forum');
         }
+
+        $question->delete();
     }
 }
