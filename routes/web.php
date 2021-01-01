@@ -22,7 +22,7 @@ Route::get('/', function () {
     if (auth()->check()) {
         return redirect()->route('forum');
     } else {
-        return view('welcome');
+        return view('landing');
     }
 });
 
