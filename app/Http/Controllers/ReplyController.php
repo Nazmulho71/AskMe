@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use App\Models\Reply;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class ReplyController extends Controller
@@ -33,5 +32,23 @@ class ReplyController extends Controller
             'question_id' => $question->id,
             'user_id' => auth()->id()
         ]);
+    }
+
+    public function edit(Question $question, Reply $reply)
+    {
+        return Inertia::render('Forum/RepUpdate', [
+            'question' => $question,
+            'reply' => $reply
+        ]);
+    }
+
+    public function update(Question $question, Reply $reply, Request $request)
+    {
+        //
+    }
+
+    public function destroy(Question $question, Reply $reply)
+    {
+        //
     }
 }

@@ -27,6 +27,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "bootstrap-icons": "^1.2.2",
         "vue-simplemde": "^1.1.2"
     }
 }

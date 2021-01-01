@@ -12,7 +12,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Font Awesome -->
-        <script src="https://kit.fontawesome.com/ba4be11306.js" crossorigin="anonymous"></script>
+        {{-- <script src="https://kit.fontawesome.com/ba4be11306.js" crossorigin="anonymous"></script> --}}
+        <script src="{{ asset('js/fontawesome.js') }}"></script>
 
         <!-- Favicon -->
         <link rel="shortcut icon" href="{{ asset('AskMe.png') }}" type="image/x-icon">

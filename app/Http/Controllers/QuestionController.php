@@ -19,6 +19,8 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::latest()->get();
+        
+        $questions->q_counts = $questions->count();
 
         foreach ($questions as $question) {
             $question->body_excerpt = Str::words($question->body, 20);
@@ -66,6 +68,7 @@ class QuestionController extends Controller
         $question->category = $question->category;
         $question->reply_count = $question->replies->count() . ' ' . Str::plural('reply', $question->replies->count());
         $question->replies_count = $question->replies->count();
+        $question->isAuthAsked = ($question->user->id == auth()->id()) ? true : false;
         $question->time_diff = $question->created_at->diffForHumans();
 
         $replies = Reply::with('question')->where('question_id', '=', $question->id)->latest()->get();
@@ -73,7 +76,7 @@ class QuestionController extends Controller
         foreach ($replies as $reply) {
             $reply->user = $reply->user;
             $reply->likes_count = $reply->likes->count();
-
+            $reply->isAuthReplied = $reply->user->id == auth()->id();
             $reply->likes = $reply->likes;
 
             foreach ($reply->likes as $like) {
@@ -101,6 +104,12 @@ class QuestionController extends Controller
 
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        
+        $replies = $question->replies;
+
+        foreach ($replies as $reply) {
+            $reply->likes->delete();
+        }
     }
 }

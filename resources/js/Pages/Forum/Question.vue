@@ -8,16 +8,22 @@
                     </h2>
                 </div>
 
-                <div v-if="question.replies_count">
-                    <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="route('reply.create', question.slug)">
-                        Write an answer
-                    </inertia-link>
+                <div v-if="question.isAuthAsked">
+                    <que-dropdown :data="question" :key="question.id" />
                 </div>
 
                 <div v-else>
-                    <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="route('category.index', question.category.slug)">
-                        Browse {{ question.category.name }} category
-                    </inertia-link>
+                    <div v-if="question.replies_count">
+                        <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="route('reply.create', question.slug)">
+                            Write an answer
+                        </inertia-link>
+                    </div>
+
+                    <div v-else>
+                        <inertia-link class="text-red-500 underline transition-all duration-100 hover:text-red-300" :href="route('category.index', question.category.slug)">
+                            Browse {{ question.category.name }} category
+                        </inertia-link>
+                    </div>
                 </div>
             </div>
         </template>
@@ -48,7 +54,7 @@
 
         <div>
             <div class="max-w-7xl mx-auto pb-6 sm:px-6 lg:px-8">
-                <div class="py-4 px-6 bg-white overflow-hidden shadow-md sm:rounded-lg">
+                <div class="py-4 px-6 bg-white overflow-visible shadow-md sm:rounded-lg">
                     <div v-if="question.replies_count">
                         <replies v-for="reply in reps" :question=que :data=reply :key=reply.id />
                     </div>
@@ -66,6 +72,7 @@
     import AppLayout from '@/Layouts/AppLayout'
     import Replies from '@/Pages/Forum/Replies'
     import md from 'marked'
+    import QueDropdown from '@/Pages/Forum/QueDropdown'
 
     export default {
         props: ['question', 'replies'],
@@ -79,7 +86,8 @@
 
         components: {
             AppLayout,
-            Replies
+            Replies,
+            QueDropdown
         },
 
         computed: {

@@ -40,15 +40,22 @@ Route::group(['prefix' => 'question'], function () {
     Route::get('/{question}', [QuestionController::class, 'show'])->name('question.show');
 
     Route::get('/{question}/edit', [QuestionController::class, 'edit'])->name('question.edit');
-    Route::post('/{question}/edit', [QuestionController::class, 'update']);
+    Route::put('/{question}/edit', [QuestionController::class, 'update']);
 
     Route::delete('/{question}', [QuestionController::class, 'destroy'])->name('question.destroy');
 
     /**
      * Reply CRUD
      */
-    Route::get('/{question}/reply', [ReplyController::class, 'create'])->name('reply.create');
-    Route::post('/{question}/reply', [ReplyController::class, 'store']);
+    Route::group(['prefix' => '{question}/reply'], function ($question) {
+        Route::get('/', [ReplyController::class, 'create'])->name('reply.create');
+        Route::post('/', [ReplyController::class, 'store']);
+
+        Route::get('/{reply}/edit')->name('reply.edit');
+        Route::put('/{reply}/edit');
+
+        Route::delete('/{reply}')->name('reply.destroy');
+    });
 });
 
 /**
